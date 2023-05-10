@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">InvoiceMaker</string>
+    <string name="setting">Setting</string>
+    <string name="submit">Submit</string>
+    <string name="username">UserName</string>
+    <string name="company_name">Company Name</string>
+    <string name="address">Address</string>
+    <string name="gst_no">GST No.</string>
+    <string name="declaration">Declaration</string>
+    <string name="invoice_message">Invoice Message</string>
+    <string name="state_gst">State GST</string>
+    <string name="central_gst">Central GST</string>
+    <string name="terms_of_delivery">Terms Of Delivery</string>
+    <string name="other">Other</string>
+    <string name="buyer_name">Buyer Name</string>
+    <string name="buyer_adderss">Buyer Adderss</string>
+    <string name="buyer_gstno">Buyer GSTNo.</string>
+    <string name="buyer_state_code">Buyer State Code</string>
+    <string name="buyer_contact">Buyer Contact</string>
+    <string name="buyer_e_mail">Buyer E-mail</string>
+    <string name="invoce_date">Invoce Date</string>
+    <string name="mode_term_of_payment">Mode/Term of Payment</string>
+</resources>
