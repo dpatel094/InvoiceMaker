@@ -1,17 +1,11 @@
 package com.invoicemaker
-
-
-
-
-
 data class BillCreationDataModel(
-    var buyerName: String = "",
-    var buyerAddress: String = "",
-    var buyerGstNo: String = "",
-    var buyerStateCode: String= "",
-    var buyerId: String= "",
-    var buyerContact: String = "",
-    var buyerEmail: String = "",
-    var invoiceDate: String = "",
-    var termOfPayment: String = "",
+    var buyer_Name: String = "f",
+    var buyer_Address: String = "g",
+    var buyer_GstNo: String = "g",
+    var buyer_StateCode: String= "t",
+    var buyer_Contact: String = "r",
+    var buyer_Email: String = "y",
+    var invoiceDate: String = "w",
+    var termOfPayment: String = "v",
 )

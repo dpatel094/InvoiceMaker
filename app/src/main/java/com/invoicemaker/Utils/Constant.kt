@@ -6,6 +6,7 @@ class Constant {
 
     companion object{
         val prefilldatabase = "PreFill"
+        val buyertable = "BuyerTable"
 
     }
 }

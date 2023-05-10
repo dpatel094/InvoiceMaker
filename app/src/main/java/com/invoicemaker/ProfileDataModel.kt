@@ -1,10 +1,6 @@
 package com.invoicemaker
 
 import android.util.Patterns
-
-
-
-
 data class ProfileDataModel(
     var userName: String = "",
     var cName: String = "",

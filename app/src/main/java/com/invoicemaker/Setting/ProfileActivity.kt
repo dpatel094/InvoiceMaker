@@ -87,8 +87,6 @@ class ProfileActivity : AppCompatActivity() {
                 Toast.makeText(this@ProfileActivity, "Enter Other", Toast.LENGTH_LONG).show()
                 return@apply
             } else {
-//                val dialogFragment = Progress_Dialog()
-//                dialogFragment.show(supportFragmentManager, "My  Fragment")
                 val profileDataModel = ProfileDataModel(
                     binding.databingmodel!!.userName,
                     binding.databingmodel!!.cName,
