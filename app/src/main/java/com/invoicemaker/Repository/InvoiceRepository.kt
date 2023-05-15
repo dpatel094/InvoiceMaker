@@ -80,15 +80,19 @@ class InvoiceRepository {
 
 
     fun SearchBuyer(searchText: String, context: Context) {
+
+
         val usersRef = db!!.collection(Constant.buyertable)
         val query: Query = usersRef.whereEqualTo("buyer_Name", searchText)
         query.get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val querySnapshot: QuerySnapshot = task.result
                 if (!querySnapshot.isEmpty) {
-                    val obj = querySnapshot.documents[0].toObject(BillCreationDataModel::class.java)
+                   // for (document in querySnapshot.documents) {
+                    val obj =
+                        querySnapshot.documents[0].toObject(BillCreationDataModel::class.java)
                         searchModelData.postValue(obj)
-
+                    //}
 
                 } else {
                     Log.d("TAG", "Error getting documents: ", task.getException())
@@ -99,28 +103,75 @@ class InvoiceRepository {
         }
 
     }
-
+    fun BillCreationDataModel.toMap(): HashMap<String, Any?> {
+        return hashMapOf(
+            "buyer_Name" to buyer_Name,
+            "buyer_Address" to buyer_Address,
+            "buyer_GstNo" to buyer_GstNo,
+            "buyer_StateCode" to buyer_StateCode,
+            "buyer_Contact" to buyer_Contact,
+            "buyer_Email" to buyer_Email,
+            "invoiceDate" to invoiceDate,
+            "termOfPayment" to termOfPayment,
+        )
+    }
     fun UploadBuyerData(billCreationDataModel: BillCreationDataModel, invoiceViewModel: Context) {
 
-        db!!.collection(Constant.buyertable)
-            .document(billCreationDataModel.buyer_Name)
-            .set(billCreationDataModel)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    uploadDataSuccess.postValue(true)
-                    // roomDatabaserepository.delete_record(1)
+        db!!.collection(Constant.buyertable).document(billCreationDataModel.buyer_Name).get()
+            .addOnSuccessListener {
+                if (it.exists()) {
+                    val data = hashMapOf(
+                        "buyer_Name" to billCreationDataModel.buyer_Name,
+                        "buyer_Address" to billCreationDataModel.buyer_Address,
+                        "buyer_GstNo" to billCreationDataModel.buyer_GstNo,
+                        "buyer_StateCode" to billCreationDataModel.buyer_StateCode,
+                        "buyer_Contact" to billCreationDataModel.buyer_Contact,
+                        "buyer_Email" to billCreationDataModel.buyer_Email,
+                        "invoiceDate" to billCreationDataModel.invoiceDate,
+                        "termOfPayment" to billCreationDataModel.termOfPayment,
+                    )
+                    db!!.collection(Constant.buyertable)
+                        .document(billCreationDataModel.buyer_Name)
+                        .update(data as Map<String, Any>)
+                        .addOnCompleteListener { queryDocumentSnapshots ->
+                            if (queryDocumentSnapshots.isSuccessful) {
+                                uploadDataSuccess.postValue(true)
+                                // roomDatabaserepository.delete_record(1)
 
-                    // databaserepository.saveRecord(category)
+                                // databaserepository.saveRecord(category)
 
+                            } else {
+                                uploadDataSuccess.postValue(false)
+
+                            }
+                        }.addOnFailureListener {
+                            uploadDataSuccess.postValue(false)
+
+                        }
                 } else {
-                    uploadDataSuccess.postValue(false)
+                    db!!.collection(Constant.buyertable)
+                        .document(billCreationDataModel.buyer_Name)
+                        .set(billCreationDataModel)
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                uploadDataSuccess.postValue(true)
+                                // roomDatabaserepository.delete_record(1)
 
+                                // databaserepository.saveRecord(category)
+
+                            } else {
+                                uploadDataSuccess.postValue(false)
+
+                            }
+                        }
+                        .addOnFailureListener {
+                            uploadDataSuccess.postValue(false)
+
+                        }
                 }
-            }
-            .addOnFailureListener {
-                uploadDataSuccess.postValue(false)
-
-            }
+            }.addOnFailureListener { e ->
+            Log.w("TAG", "Error checking if document with ID exists", e)
+        }
 
 
     }

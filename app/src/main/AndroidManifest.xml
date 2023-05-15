@@ -16,6 +16,9 @@
         android:theme="@style/Theme.InvoiceMaker"
         tools:targetApi="31">
         <activity
+            android:name=".InvoiceMaker.IncoiceMakerActivity"
+            android:exported="false" />
+        <activity
             android:name=".CreateBill.CreateBillActivity"
             android:exported="false" />
         <activity

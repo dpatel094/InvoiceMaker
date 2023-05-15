@@ -1,5 +1,6 @@
 package com.invoicemaker.CreateBill
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -11,16 +12,21 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.invoicemaker.BillCreationDataModel
+import com.invoicemaker.InvoiceMaker.IncoiceMakerActivity
 import com.invoicemaker.ProfileDataModel
 import com.invoicemaker.R
+import com.invoicemaker.Setting.ProfileActivity
+import com.invoicemaker.Utils.Utils
 import com.invoicemaker.ViewModel.InvoiceViewModel
 import com.invoicemaker.databinding.ActivityCreateBillBinding
 
 class CreateBillActivity : AppCompatActivity() {
-     lateinit var currentbinding: ActivityCreateBillBinding
+    lateinit var currentbinding: ActivityCreateBillBinding
     var invoiceViewModel: InvoiceViewModel? = null
+    var utils: Utils = Utils()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        utils = Utils()
         currentbinding = DataBindingUtil.setContentView(this, R.layout.activity_create_bill)
 
         currentbinding.toolbar.title = "Create Bill"
@@ -29,8 +35,15 @@ class CreateBillActivity : AppCompatActivity() {
             ViewModelProvider.AndroidViewModelFactory.getInstance(application)
         )[InvoiceViewModel::class.java]
 
+        invoiceViewModel?.uploadDataSuccess?.observe(this,Observer{
+
+                val intent = Intent(this, IncoiceMakerActivity::class.java)
+                startActivity(intent)
+
+        })
         invoiceViewModel?.billCreationDataModel?.observe(this, Observer {
             if (it != null) {
+
                 currentbinding.billingBindingModel = getCompany(it)
             }
         })
@@ -48,10 +61,10 @@ class CreateBillActivity : AppCompatActivity() {
                 if (editable!!.length >= 3) {
                     currentbinding.detailActivity.visibility = View.VISIBLE
                     if (editable.length in 3..8) {
-                        invoiceViewModel!!.SearchBuyerDetail(
-                            editable.toString(),
-                            this@CreateBillActivity
-                        )
+//                        invoiceViewModel!!.SearchBuyerDetail(
+//                            editable.toString(),
+//                            this@CreateBillActivity
+//                        )
                     }
                 } else {
                     currentbinding.detailActivity.visibility = View.GONE
@@ -62,23 +75,29 @@ class CreateBillActivity : AppCompatActivity() {
 
         currentbinding.subBtnBuyer.setOnClickListener {
 
-             displayGreeting()
+            displayGreeting()
 
         }
         //getBuyerDataDataFromServer()
     }
+
     private fun getBuyerDataDataFromServer() {
         invoiceViewModel!!.GetBuyerDetailToServer()
     }
+
     private fun displayGreeting() {
         try {
             currentbinding.apply {
-                if (currentbinding.edtBuyerName.text.toString().isBlank() && currentbinding.edtBuyerName.text.toString().isEmpty()) {
+                if (currentbinding.edtBuyerName.text.toString()
+                        .isBlank() && currentbinding.edtBuyerName.text.toString().isEmpty()
+                ) {
                     Toast.makeText(this@CreateBillActivity, "Enter Buyer Name", Toast.LENGTH_LONG)
                         .show()
                     return@apply
                 } else
-                    if (currentbinding.edtbuyerAddress.text.toString().isBlank() && currentbinding.edtbuyerAddress.text.toString().isEmpty()) {
+                    if (currentbinding.edtbuyerAddress.text.toString()
+                            .isBlank() && currentbinding.edtbuyerAddress.text.toString().isEmpty()
+                    ) {
                         Toast.makeText(
                             this@CreateBillActivity,
                             "Enter Buyer Address",
@@ -86,7 +105,9 @@ class CreateBillActivity : AppCompatActivity() {
                         )
                             .show()
                         return@apply
-                    } else if (currentbinding.edtbuyerGstNo.text.toString().isBlank() && currentbinding.edtbuyerGstNo.text.toString().isEmpty()) {
+                    } else if (currentbinding.edtbuyerGstNo.text.toString()
+                            .isBlank() && currentbinding.edtbuyerGstNo.text.toString().isEmpty()
+                    ) {
                         Toast.makeText(
                             this@CreateBillActivity,
                             "Enter Buyer GST No.",
@@ -94,7 +115,9 @@ class CreateBillActivity : AppCompatActivity() {
                         )
                             .show()
                         return@apply
-                    } else if (currentbinding.edtbuyerStateCode.text.toString().isBlank() && currentbinding.edtbuyerStateCode.text.toString().isEmpty()) {
+                    } else if (currentbinding.edtbuyerStateCode.text.toString()
+                            .isBlank() && currentbinding.edtbuyerStateCode.text.toString().isEmpty()
+                    ) {
                         Toast.makeText(
                             this@CreateBillActivity,
                             "Enter Buyer State Code",
@@ -102,7 +125,9 @@ class CreateBillActivity : AppCompatActivity() {
                         )
                             .show()
                         return@apply
-                    } else if (currentbinding.edtbuyerContact.text.toString().isBlank() && currentbinding.edtbuyerContact.text.toString().isEmpty()) {
+                    } else if (currentbinding.edtbuyerContact.text.toString()
+                            .isBlank() && currentbinding.edtbuyerContact.text.toString().isEmpty()
+                    ) {
                         Toast.makeText(
                             this@CreateBillActivity,
                             "Enter Buyer Contact",
@@ -110,7 +135,9 @@ class CreateBillActivity : AppCompatActivity() {
                         )
                             .show()
                         return@apply
-                    } else if (currentbinding.edtbuyerEmail.text.toString().isBlank() && currentbinding.edtbuyerEmail.text.toString().isEmpty()) {
+                    } else if (currentbinding.edtbuyerEmail.text.toString()
+                            .isBlank() && currentbinding.edtbuyerEmail.text.toString().isEmpty()
+                    ) {
                         Toast.makeText(
                             this@CreateBillActivity,
                             "Enter Buyer E-Mail",
@@ -118,7 +145,9 @@ class CreateBillActivity : AppCompatActivity() {
                         )
                             .show()
                         return@apply
-                    } else if (currentbinding.edtinvoiceDate.text.toString().isBlank() && currentbinding.edtinvoiceDate.text.toString().isEmpty()) {
+                    } else if (currentbinding.edtinvoiceDate.text.toString()
+                            .isBlank() && currentbinding.edtinvoiceDate.text.toString().isEmpty()
+                    ) {
                         Toast.makeText(
                             this@CreateBillActivity,
                             "Enter Buyer Invoice",
@@ -126,7 +155,9 @@ class CreateBillActivity : AppCompatActivity() {
                         )
                             .show()
                         return@apply
-                    } else if (currentbinding.edttermOfPayment.text.toString().isBlank() && currentbinding.edttermOfPayment.text.toString().isEmpty()) {
+                    } else if (currentbinding.edttermOfPayment.text.toString()
+                            .isBlank() && currentbinding.edttermOfPayment.text.toString().isEmpty()
+                    ) {
                         Toast.makeText(
                             this@CreateBillActivity,
                             "Enter Buyer Terms Of Payment",
@@ -145,7 +176,9 @@ class CreateBillActivity : AppCompatActivity() {
                             currentbinding.edtbuyerContact.text.toString(),
                             currentbinding.edtbuyerEmail.text.toString(),
                             currentbinding.edtinvoiceDate.text.toString(),
-                            currentbinding.edttermOfPayment.text.toString()
+                            currentbinding.edttermOfPayment.text.toString(),
+                            utils.generateUniqueId()
+
                         )
                         invoiceViewModel!!.PostBuyerDetailToserver(
                             billCreationDataModel,
@@ -161,15 +194,16 @@ class CreateBillActivity : AppCompatActivity() {
 
     private fun getCompany(currentbinding: BillCreationDataModel?): BillCreationDataModel {
 
-        return  BillCreationDataModel(
+        return BillCreationDataModel(
             currentbinding!!.buyer_Name,
-            currentbinding!!.buyer_Address,
-            currentbinding!!.buyer_GstNo,
-            currentbinding!!.buyer_StateCode,
-            currentbinding!!.buyer_Contact,
-            currentbinding!!.buyer_Email,
-            currentbinding!!.invoiceDate,
-            currentbinding!!.termOfPayment
+            currentbinding.buyer_Address,
+            currentbinding.buyer_GstNo,
+            currentbinding.buyer_StateCode,
+            currentbinding.buyer_Contact,
+            currentbinding.buyer_Email,
+            currentbinding.invoiceDate,
+            currentbinding.termOfPayment,
+            currentbinding.buy_uId
         )
     }
 }
