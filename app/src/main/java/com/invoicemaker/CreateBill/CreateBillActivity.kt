@@ -180,10 +180,12 @@ class CreateBillActivity : AppCompatActivity() {
                             utils.generateUniqueId()
 
                         )
-                        invoiceViewModel!!.PostBuyerDetailToserver(
-                            billCreationDataModel,
-                            this@CreateBillActivity
-                        )
+//                        invoiceViewModel!!.PostBuyerDetailToserver(
+//                            billCreationDataModel,
+//                            this@CreateBillActivity
+//                        )
+                        val intent = Intent(this@CreateBillActivity, IncoiceMakerActivity::class.java)
+                        startActivity(intent)
                     }
 
             }

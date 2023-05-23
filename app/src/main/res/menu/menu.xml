@@ -6,10 +6,6 @@
         android:icon="@drawable/setting_line"
         android:title="@string/setting"
         app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/id_menu"
-        android:icon="@drawable/logo"
-        android:title="@string/setting"
-        app:showAsAction="ifRoom" />
+
 
 </menu>

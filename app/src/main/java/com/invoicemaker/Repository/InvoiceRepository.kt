@@ -89,9 +89,8 @@ class InvoiceRepository {
                 val querySnapshot: QuerySnapshot = task.result
                 if (!querySnapshot.isEmpty) {
                    // for (document in querySnapshot.documents) {
-                    val obj =
-                        querySnapshot.documents[0].toObject(BillCreationDataModel::class.java)
-                        searchModelData.postValue(obj)
+                    val obj = querySnapshot.documents[0].toObject(BillCreationDataModel::class.java)
+                    searchModelData.postValue(obj)
                     //}
 
                 } else {

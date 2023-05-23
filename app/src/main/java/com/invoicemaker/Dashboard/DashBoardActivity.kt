@@ -5,18 +5,24 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.invoicemaker.CreateBill.CreateBillActivity
 import com.invoicemaker.R
 import com.invoicemaker.Setting.ProfileActivity
 
 
 class DashBoardActivity : AppCompatActivity() {
+    var floatingActionButton : FloatingActionButton?  = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView( R.layout.activity_dash_board)
 
         setSupportActionBar(findViewById(R.id.toolbar))
-
+floatingActionButton = findViewById(R.id.create_invoice)
+        floatingActionButton!!.setOnClickListener {
+            val intent=Intent(this, CreateBillActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 
@@ -33,12 +39,7 @@ class DashBoardActivity : AppCompatActivity() {
                 startActivity(intent)
                 true
             }
-            R.id.id_menu ->
-            {
-                val intent=Intent(this, CreateBillActivity::class.java)
-                startActivity(intent)
-                true
-            }
+
 
             else -> super.onOptionsItemSelected(item)
         }
