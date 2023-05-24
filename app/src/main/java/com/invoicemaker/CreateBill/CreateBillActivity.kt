@@ -61,10 +61,10 @@ class CreateBillActivity : AppCompatActivity() {
                 if (editable!!.length >= 3) {
                     currentbinding.detailActivity.visibility = View.VISIBLE
                     if (editable.length in 3..8) {
-//                        invoiceViewModel!!.SearchBuyerDetail(
-//                            editable.toString(),
-//                            this@CreateBillActivity
-//                        )
+                        invoiceViewModel!!.SearchBuyerDetail(
+                            editable.toString(),
+                            this@CreateBillActivity
+                        )
                     }
                 } else {
                     currentbinding.detailActivity.visibility = View.GONE
@@ -180,12 +180,12 @@ class CreateBillActivity : AppCompatActivity() {
                             utils.generateUniqueId()
 
                         )
-//                        invoiceViewModel!!.PostBuyerDetailToserver(
-//                            billCreationDataModel,
-//                            this@CreateBillActivity
-//                        )
-                        val intent = Intent(this@CreateBillActivity, IncoiceMakerActivity::class.java)
-                        startActivity(intent)
+                        invoiceViewModel!!.PostBuyerDetailToserver(
+                            billCreationDataModel,
+                            this@CreateBillActivity
+                        )
+//                        val intent = Intent(this@CreateBillActivity, IncoiceMakerActivity::class.java)
+//                        startActivity(intent)
                     }
 
             }

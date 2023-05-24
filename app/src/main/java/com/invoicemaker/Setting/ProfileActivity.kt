@@ -18,7 +18,7 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProfileBinding
     var invoiceViewModel: InvoiceViewModel? = null
     var utils: Utils = Utils()
-    var invoiceRepository: InvoiceRepository? = InvoiceRepository()
+//    var invoiceRepository: InvoiceRepository? = InvoiceRepository(application)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         utils.context = this
@@ -52,7 +52,7 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     private fun getPrefillDataFromServer() {
-        invoiceViewModel!!.GetPrefillFromServer()
+        invoiceViewModel!!.getPrefillData()
     }
 
     private fun displayGreeting() {

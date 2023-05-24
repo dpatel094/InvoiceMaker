@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        loginViewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
+        loginViewModel = ViewModelProviders.of(this)[LoginViewModel::class.java]
 
         binding = DataBindingUtil.setContentView(
             this@MainActivity,
@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
 
         binding!!.loginViewModel = loginViewModel
 
-        loginViewModel!!.getUser().observe(this
+        loginViewModel!!.user.observe(this
         ) { loginUser ->
             if (TextUtils.isEmpty(Objects.requireNonNull(loginUser).getStrEmailAddress())) {
                 binding!!.txtEmailAddress.setError("Enter an E-Mail Address")
@@ -47,5 +47,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
 
 }
